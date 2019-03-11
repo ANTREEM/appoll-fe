@@ -1,0 +1,29 @@
+{
+  "name": "appoll-fe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run clean && npm run scss && npm run static",
+    "clean": "rimraf public && mkdir public",
+    "scss": "node-sass scss/appoll.scss --output-style compressed --source-map true --source-map-contents true -o public",
+    "static": "copyfiles \"{js,html}/**/*.*\" --up 1 public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JackNova/appoll-fe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JackNova/appoll-fe/issues"
+  },
+  "homepage": "https://github.com/JackNova/appoll-fe#readme",
+  "devDependencies": {
+    "copyfiles": "^2.1.0",
+    "node-sass": "^4.11.0",
+    "rimraf": "^2.6.3"
+  }
+}
