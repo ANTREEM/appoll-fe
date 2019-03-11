@@ -1,2 +1,59 @@
-Hello World!
-2019/03/06 11:01
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Appoll</title>
+  <link rel="stylesheet" href="appoll.css" id="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>Appoll</h1>
+  </header>
+  <section id="question_1">
+    <form>
+      Che font usiamo?
+      <ul>
+        <li>
+          <input type="radio" name="question_1" value="0" id="question_1_0">
+          <label for="question_1_0">Times New Roman</label>
+        </li>
+        <li>
+          <input type="radio" name="question_1" value="1" id="question_1_1">
+          <label for="question_1_1">Roboto</label>
+        </li>
+        <li>
+          <input type="radio" name="question_1" value="2" id="question_1_2">
+          <label for="question_1_2">Courier New</label>
+        </li>
+        <li>
+          <input type="radio" name="question_1" value="3" id="question_1_3">
+          <label for="question_1_3">Comic Sans</label>
+        </li>
+      </ul>
+      <button type="submit">Invia</button>
+    </form>
+  </section>
+  <div class="connection-lost">
+    <h2>Votazioni terminate!</h2>
+    <p>Restiamo in attesa della prossima domanda&hellip;</p>
+  </div>
+  <div class="poll-ended">
+    <h2>Votazioni terminate!</h2>
+    <p>Restiamo in attesa della prossima domanda&hellip;</p>
+  </div>
+  <div class="thanks-for-voting">
+    <h2>Grazie per aver votato!</h2>
+    <p>Restiamo in attesa della prossima domanda&hellip;</p>
+  </div>
+  <div class="you-won">
+    <h2>Congratulazioni!</h2>
+    <p>Hai vinto il nostro fantastico gadget!</p>
+  </div>
+  <script type="module" src="appoll.js"></script>
+</body>
+
+</html>

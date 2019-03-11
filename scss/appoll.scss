@@ -1,0 +1,28 @@
+:root {
+  --text-color: #333;
+  --font-size: 32px;
+}
+
+body {
+  color: var(--text-color);
+  font-size: var(--font-size);
+}
+
+section {
+  display: none;
+}
+
+@for $i from 1 through 5 {
+  [data-state="question_#{$i}"] #question_#{$i} {
+    display: block;
+  }
+}
+
+@each $state in connection-lost connection-broken thanks-for-voting poll-ended you-won {
+  .#{$state} {
+    display: none;
+  }
+  [data-state="#{$state}"] .#{$state} {
+    display: block;
+  }
+}
