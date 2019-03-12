@@ -13,33 +13,16 @@
   <header>
     <h1>Appoll</h1>
   </header>
-  <section id="question_1">
+  <section class="question-active">
     <form>
-      Che font usiamo?
-      <ul>
-        <li>
-          <input type="radio" name="question_1" value="0" id="question_1_0">
-          <label for="question_1_0">Times New Roman</label>
-        </li>
-        <li>
-          <input type="radio" name="question_1" value="1" id="question_1_1">
-          <label for="question_1_1">Roboto</label>
-        </li>
-        <li>
-          <input type="radio" name="question_1" value="2" id="question_1_2">
-          <label for="question_1_2">Courier New</label>
-        </li>
-        <li>
-          <input type="radio" name="question_1" value="3" id="question_1_3">
-          <label for="question_1_3">Comic Sans</label>
-        </li>
-      </ul>
+      <label></label>
+      <ul></ul>
       <button type="submit">Invia</button>
     </form>
   </section>
   <div class="connection-lost">
-    <h2>Votazioni terminate!</h2>
-    <p>Restiamo in attesa della prossima domanda&hellip;</p>
+    <h2>Segnale perso!</h2>
+    <p>Proviamo a riconnetterci&hellip;</p>
   </div>
   <div class="poll-ended">
     <h2>Votazioni terminate!</h2>
@@ -53,6 +36,13 @@
     <h2>Congratulazioni!</h2>
     <p>Hai vinto il nostro fantastico gadget!</p>
   </div>
+
+  <template>
+    <li>
+      <input type="radio" name="answer" value="" id="">
+      <label for=""></label>
+    </li>
+</template>
   <script type="module" src="appoll.js"></script>
 </body>
 

@@ -1,17 +1,18 @@
 /**
- * @typedef {object} PollMessage
- * @property {string} type
- * @property {number} [question]
- * @property {number} [answer]
- * @property {boolean} [active]
+ * @typedef {object} QuestionMessage
+ * @property {number} poll_id
+ * @property {string} question
+ * @property {boolean} is_opened
+ * @property {Object.<string, number>} answers
  */
 
-const WS_ENDPOINT = 'wss://71ilea0hs0.execute-api.eu-central-1.amazonaws.com/Prod';
+const WS_ENDPOINT = 'wss://n84zxaq6o7.execute-api.eu-central-1.amazonaws.com/Prod';
 const RECONNECTION_LIMIT = 5;
 
 /** @type {WebSocket} */
 let ws;
 let reconnections = 0;
+let currentQuestion = 0;
 
 function connect() {
   ws = new WebSocket(WS_ENDPOINT);
@@ -27,8 +28,7 @@ function connect() {
     reconnect();
   });
   ws.addEventListener('error', (ev) => {
-    console.log('Connection failed', ev);
-    reconnect();
+    console.log('Socker error', ev);
   });
   ws.addEventListener('message', event => {
     /** @type {PollMessage} */
@@ -45,7 +45,7 @@ function connect() {
 function reconnect() {
   if (reconnections < RECONNECTION_LIMIT) {
     reconnections++;
-    setTimeout(connect, reconnections * 1000);
+    setTimeout(connect, 2 ** (reconnections - 1) * 1000);
   }
 }
 
@@ -56,46 +56,54 @@ function setState(state) {
   document.body.dataset.state = state;
 }
 
-function getCurrentQuestion() {
-  const match = document.body.dataset.state.match(/^question_(\d+)$/);
-  return match ? +match[1] : null;
+
+const form = document.querySelector('form');
+const questionLabel = form.querySelector('label');
+const answerList = form.querySelector('ul');
+const answerTpl = document.querySelector('template').content;
+/**
+ * @param {QuestionMessage} message
+ */
+function buildQuestion(message) {
+  questionLabel.textContent = message.question;
+  answerList.innerHTML = '';
+  Object.keys(message.answers).forEach(answer => {
+    const fragment = answerTpl.cloneNode(true);
+    const id = `answer:${answer}`; // #YOLO
+    /** @type {HTMLLabelElement} */
+    const label = fragment.querySelector('label');
+    const radio = fragment.querySelector('input');
+    label.textContent = answer;
+    label.htmlFor = id;
+    radio.id = id;
+    radio.value = answer;
+    answerList.appendChild(fragment);
+  });
+  currentQuestion = message.poll_id;
 }
 
-/**
- * @param {PollMessage} message
- */
 function handleMessage(message) {
-  switch (message.type) {
-    case 'question':
-      if (message.active) {
-        setState(`question_${message.question}`);
-      } else if (+sessionStorage.lastVoted === message.question) {
-        setState('thanks-for-voting');
-      } else {
-        setState('poll-ended');
-      }
-      break;
-    case 'update-css':
-      updateStylesheet();
-      break;
-    case 'you-won':
-      setState('you-won');
-      break;
+  if ('poll_id' in message) {
+    buildQuestion(message);
+    setState(message.is_opened ? 'question-active' : 'poll-ended');
+  } else if (message.you_won) {
+    setState('you-won');
+  } else if (message.reload_css) {
+    updateStylesheet();
   }
 }
 
 function handleSubmit(event) {
   event.preventDefault();
-  const question = getCurrentQuestion();
-  if (!question) {
+  if (!currentQuestion) {
     return;
   }
-  const answer = +event.target.elements[`question_${question}`].value;
-  if (!answer) {
+  const preference = event.target.elements.answer.value;
+  if (!preference) {
     return;
   }
-  sessionStorage.lastVoted = question;
-  sendMessage({ type: 'answer', question, answer });
+  sessionStorage.lastVoted = currentQuestion;
+  sendMessage({ poll_id: currentQuestion, preference });
   setState('thanks-for-voting');
 }
 
@@ -104,7 +112,10 @@ function handleSubmit(event) {
  */
 function sendMessage(message) {
   if (ws && ws.readyState === WebSocket.OPEN) {
-    ws.send(JSON.stringify(message));
+    ws.send(JSON.stringify({
+      message: 'sendMessage',
+      data: JSON.stringify(message)
+    }));
   }
 }
 
@@ -114,9 +125,6 @@ function updateStylesheet() {
   stylesheet.href = `${sshref}?v=${Date.now()}`;
 }
 
-
 connect();
 
-[ ...document.querySelectorAll('form') ].forEach(form => {
-  form.addEventListener('submit', handleSubmit);
-});
+form.addEventListener('submit', handleSubmit);
