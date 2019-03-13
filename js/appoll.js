@@ -113,8 +113,8 @@ function handleSubmit(event) {
 function sendMessage(message) {
   if (ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify({
-      message: 'sendMessage',
-      data: JSON.stringify(message)
+      message: 'vote',
+      userVote: message
     }));
   }
 }
