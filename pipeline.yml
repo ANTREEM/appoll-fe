@@ -160,7 +160,9 @@ Resources:
           phases:
             post_build:
               commands:
-                - aws s3 cp --recursive --acl public-read ./html s3://${SiteBucketName}/ 
+                - npm install
+                - npm run build
+                - aws s3 cp --recursive --acl public-read ./public s3://${SiteBucketName}/
           artifacts:
             type: zip
             files:
