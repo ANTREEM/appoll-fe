@@ -85,7 +85,8 @@ function buildQuestion(message) {
 function handleMessage(message) {
   if ('poll_id' in message) {
     buildQuestion(message);
-    setState(message.is_opened ? 'question-active' : 'poll-ended');
+    const isActive = message.is_opened && message.poll_id !== +sessionStorage.lastVoted;
+    setState(isActive ? 'question-active' : 'poll-ended');
   } else if (message.you_won) {
     setState('you-won');
   } else if (message.reload_css) {
