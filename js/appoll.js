@@ -67,7 +67,7 @@ const answerTpl = document.querySelector('template').content;
 function buildQuestion(message) {
   questionLabel.textContent = message.question;
   answerList.innerHTML = '';
-  Object.keys(message.answers).forEach(answer => {
+  Object.keys(message.answers).sort().forEach(answer => {
     const fragment = answerTpl.cloneNode(true);
     const id = `answer:${answer}`; // #YOLO
     /** @type {HTMLLabelElement} */
