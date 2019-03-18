@@ -89,8 +89,10 @@ function handleMessage(message) {
     setState(isActive ? 'question-active' : 'poll-ended');
   } else if (message.you_won) {
     setState('you-won');
-  } else if (message.reload_css) {
-    updateStylesheet();
+  } else if (Array.isArray(message.update_sources)) {
+    if (message.update_sources.includes('css')) {
+      updateStylesheet();
+    }
   }
 }
 
