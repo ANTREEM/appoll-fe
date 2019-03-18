@@ -31,14 +31,15 @@ function connect() {
     console.log('Socker error', ev);
   });
   ws.addEventListener('message', event => {
-    /** @type {PollMessage} */
     let message;
     try {
       message = JSON.parse(event.data);
     } catch (e) {
       console.log('Unexpected message', event);
     }
-    handleMessage(message);
+    if (message) {
+      handleMessage(message);
+    }
   });
 }
 
@@ -119,7 +120,7 @@ function handleSubmit(event) {
 }
 
 /**
- * @param {PollMessage} message
+ * @param {object} message
  */
 function sendMessage(message) {
   if (ws && ws.readyState === WebSocket.OPEN) {
