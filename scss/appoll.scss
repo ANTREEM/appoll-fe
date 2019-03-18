@@ -45,7 +45,7 @@ input[type="radio"] {
     padding: .5em 1em;
   }
   &:checked + label {
-    border-width: 2px;
+    box-shadow: 0 0 0 .0625em currentColor;
   }
 }
 
