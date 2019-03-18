@@ -85,9 +85,17 @@ function buildQuestion(message) {
 function handleMessage(message) {
   if ('poll_id' in message) {
     buildQuestion(message);
-    const isActive = message.is_opened && message.poll_id !== +sessionStorage.lastVoted;
-    setState(isActive ? 'question-active' : 'poll-ended');
+    let state = 'poll-ended';
+    if (message.poll_id === +sessionStorage.youWon) {
+      state = 'you-won';
+    } else {
+      delete sessionStorage.youWon;
+      const isActive = message.is_opened && message.poll_id !== +sessionStorage.lastVoted;
+      state = isActive ? 'question-active' : 'poll-ended';
+    }
+    setState(state);
   } else if (message.you_won) {
+    sessionStorage.youWon = currentQuestion;
     setState('you-won');
   } else if (Array.isArray(message.update_sources)) {
     if (message.update_sources.includes('css')) {
