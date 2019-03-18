@@ -36,6 +36,12 @@ Parameters:
   NotifyDeliveryLambdaName:
     Type: String
     Description: The Name of the lambda function to call on successflull delivery
+  WebsocketPlaceholder:
+    Type: String
+    Description: The placeholder for the websocket uri that is going to be replaced with the websocket uri via sed
+  WebsocketUri:
+    Type: String
+    Description: The uri of the websocket
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
@@ -171,6 +177,7 @@ Resources:
               commands:
                 - npm install
                 - npm run build
+                - sed -i 's/${WebsocketPlaceholder}/${WebsocketUri}/g' ./public/appoll.js
                 - aws s3 cp --recursive --acl public-read ./public s3://${SiteBucketName}/
           artifacts:
             type: zip
