@@ -91,8 +91,10 @@ function handleMessage(message) {
       state = 'you-won';
     } else {
       delete sessionStorage.youWon;
-      const isActive = message.is_opened && message.poll_id !== +sessionStorage.lastVoted;
-      state = isActive ? 'question-active' : 'poll-ended';
+      if (message.is_opened) {
+        state = message.poll_id === +sessionStorage.lastVoted
+          ? 'thanks-for-voting' : 'question-active';
+      }
     }
     setState(state);
   } else if (message.you_won) {
