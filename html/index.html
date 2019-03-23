@@ -22,18 +22,24 @@
   </section>
   <div class="connection-lost">
     <h2>Segnale perso!</h2>
+    <img src="./disconnected.svg" alt="Nuvola disconnessa">
     <p>Proviamo a riconnetterci&hellip;</p>
   </div>
   <div class="poll-ended">
     <h2>Votazioni terminate!</h2>
+    <img src="./hand.svg" alt="Mano aperta in segno di stop">
     <p>Restiamo in attesa della prossima domanda&hellip;</p>
+    <p class="vote-count"></p>
   </div>
   <div class="thanks-for-voting">
     <h2>Grazie per aver votato!</h2>
+    <img src="./positive-vote.svg" alt="Pollice in su">
     <p>Restiamo in attesa della prossima domanda&hellip;</p>
+    <p class="vote-count"></p>
   </div>
   <div class="you-won">
     <h2>Congratulazioni!</h2>
+    <img src="./badge.svg" alt="Badge di vittoria">
     <p>Hai vinto il nostro fantastico gadget!</p>
   </div>
 
@@ -42,7 +48,7 @@
       <input type="radio" name="answer" value="" id="">
       <label for=""></label>
     </li>
-</template>
+  </template>
   <script type="module" src="appoll.js"></script>
 </body>
 

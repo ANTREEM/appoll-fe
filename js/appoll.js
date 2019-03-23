@@ -57,11 +57,11 @@ function setState(state) {
   document.body.dataset.state = state;
 }
 
-
 const form = document.querySelector('form');
 const questionLabel = form.querySelector('label');
 const answerList = form.querySelector('ul');
 const answerTpl = document.querySelector('template').content;
+const voteCounters = document.querySelectorAll('.vote-count');
 /**
  * @param {QuestionMessage} message
  */
@@ -83,9 +83,18 @@ function buildQuestion(message) {
   currentQuestion = message.poll_id;
 }
 
+let currentPoll = 0;
+let currentVotes = 0;
 function handleMessage(message) {
   if ('poll_id' in message) {
-    buildQuestion(message);
+    if (message.poll_id !== currentPoll) {
+      currentPoll = message.poll_id;
+      currentVotes = 0;
+      buildQuestion(message);
+    }
+    currentVotes = Math.max(countVotes(message.answers), currentVotes);
+    [ ...voteCounters ].forEach(counter => counter.dataset.count = currentVotes);
+
     let state = 'poll-ended';
     if (message.poll_id === +sessionStorage.youWon) {
       state = 'you-won';
@@ -137,6 +146,13 @@ const stylesheet = document.getElementById('stylesheet');
 const sshref = stylesheet.getAttribute('href');
 function updateStylesheet() {
   stylesheet.href = `${sshref}?v=${Date.now()}`;
+}
+
+/**
+ * @param {Object.<string, number>} answers
+ */
+function countVotes(answers) {
+  return Object.values(answers).reduce((sum, votes) => sum + votes, 0);
 }
 
 connect();

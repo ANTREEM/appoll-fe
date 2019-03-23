@@ -53,3 +53,18 @@ button {
   font-size: inherit;
   font-family: inherit;
 }
+
+img {
+  height: 50vmin;
+}
+
+.vote-count {
+  font-size: 75%;
+
+  &[data-count]::before {
+    content: "Hanno votato " attr(data-count) " persone";
+  }
+  &[data-count="1"]::before {
+    content: "Ha votato una persona";
+  }
+}
