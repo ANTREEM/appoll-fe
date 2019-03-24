@@ -1,3 +1,8 @@
+@mixin slide_perc($perc) {
+  transform: translateY($perc);
+  clip-path: polygon(0 0, 100% 0, 100% (100% - $perc), 0 (100% - $perc));
+}
+
 @font-face {
   font-family: "Comic Sans";
   src: url("/comic-sans-ms.woff") format("woff"),
@@ -25,6 +30,10 @@ body {
   }
   [data-state="#{$state}"] .#{$state} {
     display: block;
+
+    img {
+      animation: $state 5s infinite;
+    }
   }
 }
 
@@ -73,4 +82,54 @@ img {
   &[data-count="1"]::before {
     content: "Ha votato una persona";
   }
+}
+
+@keyframes thanks-for-voting {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(30deg); }
+  28% { transform: rotate(-15deg); }
+  40% { transform: rotate(0deg); }
+}
+@keyframes poll-ended {
+  0% { @include slide_perc(100%); }
+  8% { @include slide_perc(-15%); }
+  20% { @include slide_perc(0%); }
+  90% {
+    @include slide_perc(0%);
+    opacity: 1;
+  }
+  100% {
+    @include slide_perc(0%);
+    opacity: 0;
+  }
+}
+@keyframes connection-lost {
+  0% { transform: rotate(0deg); }
+  5% { transform: rotate(10deg); }
+  7% { transform: rotate(-9deg); }
+  9% { transform: rotate(6deg); }
+  11% { transform: rotate(-4deg); }
+  13% { transform: rotate(3deg); }
+  15% { transform: rotate(-2deg); }
+  17% { transform: rotate(1deg); }
+  18% { transform: rotate(0deg); }
+}
+@keyframes you-won {
+  0% { transform: scale(0); }
+  5% { transform: scale(1.1); }
+  10% { transform: scale(.95); }
+  12% { transform: scale(1); }
+
+  40% { transform: rotate(0deg); }
+  45% { transform: rotate(10deg); }
+  47% { transform: rotate(-9deg); }
+  49% { transform: rotate(6deg); }
+  51% { transform: rotate(-4deg); }
+  53% { transform: rotate(3deg); }
+  55% { transform: rotate(-2deg); }
+  57% { transform: rotate(1deg); }
+  58% { transform: rotate(0deg); }
+
+  90% { opacity: 1; }
+  100% { opacity: 0; }
 }
