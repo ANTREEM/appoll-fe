@@ -143,7 +143,7 @@ function sendMessage(message) {
 }
 
 const stylesheet = document.getElementById('stylesheet');
-const sshref = stylesheet.getAttribute('href');
+const sshref = stylesheet.getAttribute('href').split('?')[0];
 function updateStylesheet() {
   stylesheet.href = `${sshref}?v=${Date.now()}`;
 }
