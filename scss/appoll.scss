@@ -10,7 +10,7 @@
 }
 
 :root {
-  --text-color: #333;
+  --text-color: #0f0;
   --font-size: 28px;
 }
 
@@ -22,6 +22,8 @@ body {
   color: var(--text-color);
   font-size: var(--font-size);
   text-align: center;
+  background: #000;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 h1 {
@@ -68,17 +70,25 @@ input[type="radio"] {
 
   + label {
     display: block;
-    border: 1px solid;
     padding: .5em 1em;
+    background: rgba(255, 255, 255, .2);
   }
   &:checked + label {
-    box-shadow: 0 0 0 .0625em currentColor;
+    background: rgba(255, 255, 255, .35);
   }
 }
 
 button {
   font-size: inherit;
   font-family: inherit;
+  border: none;
+  padding: .5em 1em;
+  background: rgba(255, 255, 255, .2);
+  color: inherit;
+
+  &:focus, &:active {
+    background: rgba(255, 255, 255, .2);
+  }
 }
 
 img {
