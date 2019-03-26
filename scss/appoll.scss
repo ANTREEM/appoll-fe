@@ -11,7 +11,7 @@
 
 :root {
   --text-color: #333;
-  --font-size: 32px;
+  --font-size: 28px;
 }
 
 *, ::before, ::after {
@@ -22,6 +22,18 @@ body {
   color: var(--text-color);
   font-size: var(--font-size);
   text-align: center;
+}
+
+h1 {
+  &::after,
+  &::before {
+    content: "";
+    display: inline-block;
+    width: .75em;
+    height: .75em;
+    background: url('./appoll_logo_04.svg') no-repeat;
+    background-size: contain;
+  }
 }
 
 @each $state in question-active connection-lost connection-broken thanks-for-voting poll-ended you-won {
