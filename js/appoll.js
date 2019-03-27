@@ -103,6 +103,8 @@ function handleMessage(message) {
       if (message.is_opened) {
         state = message.poll_id === +sessionStorage.lastVoted
           ? 'thanks-for-voting' : 'question-active';
+      } else {
+        delete sessionStorage.lastVoted;
       }
     }
     setState(state);
