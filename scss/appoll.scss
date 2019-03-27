@@ -3,14 +3,8 @@
   clip-path: polygon(0 0, 100% 0, 100% (100% - $perc), 0 (100% - $perc));
 }
 
-@font-face {
-  font-family: "Comic Sans";
-  src: url("/comic-sans-ms.woff") format("woff"),
-    url("/comic-sans-ms.ttf") format("truetype");
-}
-
 :root {
-  --text-color: #0f0;
+  --text-color: #333;
   --font-size: 28px;
 }
 
@@ -22,19 +16,15 @@ body {
   color: var(--text-color);
   font-size: var(--font-size);
   text-align: center;
-  background: #000;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 h1 {
   &::after,
   &::before {
-    content: "";
     display: inline-block;
     width: .75em;
     height: .75em;
-    background: url('./appoll_logo_04.svg') no-repeat;
-    background-size: contain;
+    background: none center/contain no-repeat;
   }
 }
 
