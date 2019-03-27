@@ -1,1 +1,1 @@
-This is the repository of the Appoll app presented @ Imola Programma 2019
+This is the repository for the Appoll app presented @ Imola Programma 2019
