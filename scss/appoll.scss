@@ -61,24 +61,19 @@ input[type="radio"] {
   + label {
     display: block;
     padding: .5em 1em;
-    background: rgba(255, 255, 255, .2);
+    border: 1px solid;
   }
   &:checked + label {
-    background: rgba(255, 255, 255, .35);
+    box-shadow: 0 0 0 2px;
   }
 }
 
 button {
   font-size: inherit;
   font-family: inherit;
+  color: inherit;
   border: none;
   padding: .5em 1em;
-  background: rgba(255, 255, 255, .2);
-  color: inherit;
-
-  &:focus, &:active {
-    background: rgba(255, 255, 255, .2);
-  }
 }
 
 img {
