@@ -4,8 +4,8 @@
 }
 
 :root {
-  --text-color: #333;
-  --font-size: 28px;
+  --text-color: #0f0;
+  --font-size: 22px;
 }
 
 *, ::before, ::after {
@@ -16,9 +16,15 @@ body {
   color: var(--text-color);
   font-size: var(--font-size);
   text-align: center;
+  background: #000;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 h1 {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
   &::after,
   &::before {
     content: '';
@@ -62,10 +68,11 @@ input[type="radio"] {
   + label {
     display: block;
     padding: .5em 1em;
-    border: 1px solid;
+    // border: 1px solid;
+    background: rgba(255, 255, 255, .2);
   }
   &:checked + label {
-    box-shadow: 0 0 0 2px;
+    background: rgba(255, 255, 255, .35);
   }
 }
 
@@ -75,6 +82,7 @@ button {
   color: inherit;
   border: none;
   padding: .5em 1em;
+  background: rgba(255, 255, 255, .2);
 }
 
 img {
