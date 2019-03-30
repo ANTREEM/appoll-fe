@@ -21,10 +21,11 @@ body {
 h1 {
   &::after,
   &::before {
+    content: '';
     display: inline-block;
     width: .75em;
     height: .75em;
-    background: none center/contain no-repeat;
+    background: url('./appoll_logo_04.svg') center/contain no-repeat;
   }
 }
 
